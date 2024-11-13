@@ -1,5 +1,119 @@
 # YORM Tutorial
 
+
+# YORM Tutorial - Inhaltsverzeichnis
+
+## [Teil 1: Grundlagen mit rex_yform_manager_dataset](#teil-1-grundlagen-mit-rex_yform_manager_dataset)
+- [Datensätze laden und auslesen](#datensätze-laden-und-auslesen)
+  - [Einzelne Datensätze](#einzelne-datensätze)
+  - [Multiple Datensätze](#multiple-datensätze)
+  - [Werte auslesen](#werte-auslesen)
+- [Mit Collections arbeiten](#mit-collections-arbeiten)
+  - [Collections filtern](#collections-filtern)
+  - [Collections mappen](#collections-mappen)
+  - [Collections gruppieren](#collections-gruppieren)
+  - [Collections aufteilen](#collections-aufteilen)
+  - [First/Last Einträge](#firstlast-einträge)
+  - [Collection-Status prüfen](#collection-status-prüfen)
+  - [IDs extrahieren](#ids-extrahieren)
+  - [Key-Value Paare](#key-value-paare)
+  - [Collections sortieren](#collections-sortieren)
+  - [Collections slicen](#collections-slicen)
+- [Filtern und Sortieren](#filtern-und-sortieren)
+  - [Where-Bedingungen](#where-bedingungen)
+  - [Order By](#order-by)
+  - [Limit](#limit)
+- [Mit Relationen arbeiten](#mit-relationen-arbeiten)
+  - [1:1 Relationen](#11-relationen)
+  - [1:n Relationen](#1n-relationen)
+  - [Relation-Collections](#relation-collections)
+- [Komplexe Abfragen](#komplexe-abfragen)
+  - [Joins](#joins)
+  - [Alias](#alias)
+  - [Select](#select)
+- [Datensätze zählen und prüfen](#datensätze-zählen-und-prüfen)
+  - [Count](#count)
+  - [Exists](#exists)
+  - [FindOne](#findone)
+- [Pagination](#pagination)
+  - [Pager Setup](#pager-setup)
+  - [Pagination Info](#pagination-info)
+
+## [Teil 2: Arbeiten mit Model-Classes](#teil-2-arbeiten-mit-model-classes)
+- [Model-Class vs. Standard-Zugriff](#model-class-vs-standard-zugriff)
+- [Model-Class erstellen](#model-class-erstellen)
+  - [Basis Setup](#basis-setup)
+  - [Relation-Methoden](#relation-methoden)
+  - [Formatierungs-Methoden](#formatierungs-methoden)
+  - [Status-Methoden](#status-methoden)
+  - [Statische Methoden](#statische-methoden)
+- [Model-Class registrieren](#model-class-registrieren)
+- [Model-Class verwenden](#model-class-verwenden)
+  - [Grundlegende Operationen](#grundlegende-operationen)
+  - [Collections](#collections)
+  - [Gruppierung](#gruppierung)
+- [Praktische Beispiele](#praktische-beispiele)
+  - [News-Übersicht](#news-übersicht)
+  - [Verwandte Artikel](#verwandte-artikel)
+
+## [Teil 3: Komplettes News-System & Tipps](#teil-3-komplettes-news-system--tipps)
+- [Table Manager Setup](#table-manager-setup)
+  - [News Tabelle](#news-tabelle)
+  - [Kategorie Tabelle](#kategorie-tabelle)
+  - [Tag Tabelle](#tag-tabelle)
+- [Erweiterte Model-Class](#erweiterte-model-class)
+  - [Basis-Methoden](#basis-methoden)
+  - [Media Handling](#media-handling)
+  - [Status Handling](#status-handling)
+  - [Formatierung](#formatierung)
+  - [URL Generierung](#url-generierung)
+  - [Statische Methoden](#statische-methoden-1)
+- [Frontend Module](#frontend-module)
+  - [News Liste](#news-liste)
+  - [Pagination](#pagination-1)
+
+## [Tipps & Tricks](#tipps--tricks)
+- [Performance Optimierung](#performance-optimierung)
+  - [Eager Loading](#eager-loading)
+  - [Collection Caching](#collection-caching)
+  - [Selektives Laden](#selektives-laden)
+- [Debugging](#debugging)
+  - [SQL Debug](#sql-debug)
+  - [Collection Debug](#collection-debug)
+- [Nützliche Queries](#nützliche-queries)
+  - [WHERE IN](#where-in)
+  - [Complex Joins](#complex-joins)
+  - [Raw SQL](#raw-sql)
+- [Utility Methoden](#utility-methoden)
+  - [Sortierung](#sortierung)
+  - [Status Checks](#status-checks)
+  - [URL Generation](#url-generation)
+- [Häufige Probleme](#häufige-probleme)
+  - [Relation Probleme](#relation-probleme)
+  - [Collection Probleme](#collection-probleme)
+  - [Performance Probleme](#performance-probleme)
+- [Best Practices](#best-practices)
+  - [Zentrale Konfiguration](#zentrale-konfiguration)
+  - [Wartbare Queries](#wartbare-queries)
+  - [Saubere API](#saubere-api)
+  - [Collections effektiv nutzen](#collections-effektiv-nutzen)
+
+## [Collection Methode map() im Detail](#collection-methode-map-im-detail)
+- [Grundlegende Verwendung](#grundlegende-verwendung)
+- [Key-Value Transformationen](#key-value-transformationen)
+- [Komplexe Datenstrukturen](#komplexe-datenstrukturen)
+- [Berechnungen](#berechnungen)
+- [Index-basierte Operationen](#index-basierte-operationen)
+- [Kombination mit anderen Methoden](#kombination-mit-anderen-methoden)
+- [API-Datenstrukturierung](#api-datenstrukturierung)
+- [Frontend-Datenvorbereitung](#frontend-datenvorbereitung)
+- [Datums-Gruppierung](#datums-gruppierung)
+- [Best Practices für map()](#best-practices-für-map)
+  - [Verkettung](#verkettung)
+  - [Performance](#performance)
+  - [Typsicherheit](#typsicherheit)
+  - [Verschachtelte Collections](#verschachtelte-collections)
+
 ## Teil 1: Grundlagen mit rex_yform_manager_dataset
 
 YORM (YForm Object-Relational Mapping) ermöglicht dir den einfachen Zugriff auf deine REDAXO-Datenbanktabellen. Los geht's mit den Grundlagen!
@@ -177,8 +291,6 @@ echo "Insgesamt " . $pager->getRowCount() . " Artikel";
 ```
 
 Das waren die Grundlagen! Im nächsten Teil schauen wir uns an, wie wir mit einer eigenen Model-Class arbeiten können.
-
-# YORM Tutorial
 
 ## Teil 2: Arbeiten mit Model-Classes
 
@@ -375,8 +487,6 @@ echo '</aside>';
 ```
 
 Im nächsten Teil schauen wir uns fortgeschrittene Techniken und ein komplettes News-System an.
-
-# YORM Tutorial
 
 ## Teil 3: Komplettes News-System & Tipps
 
