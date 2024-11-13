@@ -1,123 +1,61 @@
+<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+- [YORM Tutorial](#yorm-tutorial)
+- [YORM Tutorial - Inhaltsverzeichnis](#yorm-tutorial-inhaltsverzeichnis)
+   * [Teil 1: Grundlagen mit rex_yform_manager_dataset](#teil-1-grundlagen-mit-rex_yform_manager_dataset)
+      + [Datensätze laden und auslesen](#datensätze-laden-und-auslesen)
+      + [Mit Collections arbeiten](#mit-collections-arbeiten)
+      + [Filtern und Sortieren](#filtern-und-sortieren)
+      + [Mit Relationen arbeiten](#mit-relationen-arbeiten)
+      + [Komplexe Abfragen](#komplexe-abfragen)
+      + [Datensätze zählen und prüfen](#datensätze-zählen-und-prüfen)
+      + [Pagination](#pagination)
+   * [Teil 2: Arbeiten mit Model-Classes](#teil-2-arbeiten-mit-model-classes)
+      + [Vergleich: Ohne vs. Mit Model-Class](#vergleich-ohne-vs-mit-model-class)
+      + [Eine Model-Class erstellen](#eine-model-class-erstellen)
+      + [Die Model-Class verwenden](#die-model-class-verwenden)
+      + [Praktisches Beispiel: News-Ausgabe](#praktisches-beispiel-news-ausgabe)
+   * [Teil 3: Komplettes News-System & Tipps](#teil-3-komplettes-news-system-tipps)
+      + [Table Manager Setup](#table-manager-setup)
+      + [Die erweiterte Model-Class](#die-erweiterte-model-class)
+      + [Frontend Module](#frontend-module)
+   * [Tipps & Tricks](#tipps-tricks)
+      + [Performance Optimierung](#performance-optimierung)
+      + [Debugging](#debugging)
+      + [Nützliche Queries](#nützliche-queries)
+      + [Utility Methoden](#utility-methoden)
+      + [Häufige Probleme](#häufige-probleme)
+      + [Best Practices](#best-practices)
+- [YORM Tutorial](#yorm-tutorial-1)
+- [YORM Tutorial](#yorm-tutorial-2)
+   * [Teil 3: Komplettes News-System & Tipps](#teil-3-komplettes-news-system-tipps-1)
+      + [Table Manager Setup](#table-manager-setup-1)
+      + [Die erweiterte Model-Class](#die-erweiterte-model-class-1)
+      + [Frontend Module](#frontend-module-1)
+   * [Tipps & Tricks](#tipps-tricks-1)
+      + [Performance Optimierung](#performance-optimierung-1)
+      + [Debugging](#debugging-1)
+      + [Nützliche Queries](#nützliche-queries-1)
+      + [Utility Methoden](#utility-methoden-1)
+      + [Häufige Probleme](#häufige-probleme-1)
+      + [Best Practices](#best-practices-1)
+      + [Collection Methode `map()` im Detail](#collection-methode-map-im-detail)
+
+<!-- TOC end -->
+
+<!-- TOC --><a name="yorm-tutorial"></a>
 # YORM Tutorial
 
 
+<!-- TOC --><a name="yorm-tutorial-inhaltsverzeichnis"></a>
 # YORM Tutorial - Inhaltsverzeichnis
 
-## [Teil 1: Grundlagen mit rex_yform_manager_dataset](#teil-1-grundlagen-mit-rex_yform_manager_dataset)
-- [Datensätze laden und auslesen](#datensätze-laden-und-auslesen)
-  - [Einzelne Datensätze](#einzelne-datensätze)
-  - [Multiple Datensätze](#multiple-datensätze)
-  - [Werte auslesen](#werte-auslesen)
-- [Mit Collections arbeiten](#mit-collections-arbeiten)
-  - [Collections filtern](#collections-filtern)
-  - [Collections mappen](#collections-mappen)
-  - [Collections gruppieren](#collections-gruppieren)
-  - [Collections aufteilen](#collections-aufteilen)
-  - [First/Last Einträge](#firstlast-einträge)
-  - [Collection-Status prüfen](#collection-status-prüfen)
-  - [IDs extrahieren](#ids-extrahieren)
-  - [Key-Value Paare](#key-value-paare)
-  - [Collections sortieren](#collections-sortieren)
-  - [Collections slicen](#collections-slicen)
-- [Filtern und Sortieren](#filtern-und-sortieren)
-  - [Where-Bedingungen](#where-bedingungen)
-  - [Order By](#order-by)
-  - [Limit](#limit)
-- [Mit Relationen arbeiten](#mit-relationen-arbeiten)
-  - [1:1 Relationen](#11-relationen)
-  - [1:n Relationen](#1n-relationen)
-  - [Relation-Collections](#relation-collections)
-- [Komplexe Abfragen](#komplexe-abfragen)
-  - [Joins](#joins)
-  - [Alias](#alias)
-  - [Select](#select)
-- [Datensätze zählen und prüfen](#datensätze-zählen-und-prüfen)
-  - [Count](#count)
-  - [Exists](#exists)
-  - [FindOne](#findone)
-- [Pagination](#pagination)
-  - [Pager Setup](#pager-setup)
-  - [Pagination Info](#pagination-info)
-
-## [Teil 2: Arbeiten mit Model-Classes](#teil-2-arbeiten-mit-model-classes)
-- [Model-Class vs. Standard-Zugriff](#model-class-vs-standard-zugriff)
-- [Model-Class erstellen](#model-class-erstellen)
-  - [Basis Setup](#basis-setup)
-  - [Relation-Methoden](#relation-methoden)
-  - [Formatierungs-Methoden](#formatierungs-methoden)
-  - [Status-Methoden](#status-methoden)
-  - [Statische Methoden](#statische-methoden)
-- [Model-Class registrieren](#model-class-registrieren)
-- [Model-Class verwenden](#model-class-verwenden)
-  - [Grundlegende Operationen](#grundlegende-operationen)
-  - [Collections](#collections)
-  - [Gruppierung](#gruppierung)
-- [Praktische Beispiele](#praktische-beispiele)
-  - [News-Übersicht](#news-übersicht)
-  - [Verwandte Artikel](#verwandte-artikel)
-
-## [Teil 3: Komplettes News-System & Tipps](#teil-3-komplettes-news-system--tipps)
-- [Table Manager Setup](#table-manager-setup)
-  - [News Tabelle](#news-tabelle)
-  - [Kategorie Tabelle](#kategorie-tabelle)
-  - [Tag Tabelle](#tag-tabelle)
-- [Erweiterte Model-Class](#erweiterte-model-class)
-  - [Basis-Methoden](#basis-methoden)
-  - [Media Handling](#media-handling)
-  - [Status Handling](#status-handling)
-  - [Formatierung](#formatierung)
-  - [URL Generierung](#url-generierung)
-  - [Statische Methoden](#statische-methoden-1)
-- [Frontend Module](#frontend-module)
-  - [News Liste](#news-liste)
-  - [Pagination](#pagination-1)
-
-## [Tipps & Tricks](#tipps--tricks)
-- [Performance Optimierung](#performance-optimierung)
-  - [Eager Loading](#eager-loading)
-  - [Collection Caching](#collection-caching)
-  - [Selektives Laden](#selektives-laden)
-- [Debugging](#debugging)
-  - [SQL Debug](#sql-debug)
-  - [Collection Debug](#collection-debug)
-- [Nützliche Queries](#nützliche-queries)
-  - [WHERE IN](#where-in)
-  - [Complex Joins](#complex-joins)
-  - [Raw SQL](#raw-sql)
-- [Utility Methoden](#utility-methoden)
-  - [Sortierung](#sortierung)
-  - [Status Checks](#status-checks)
-  - [URL Generation](#url-generation)
-- [Häufige Probleme](#häufige-probleme)
-  - [Relation Probleme](#relation-probleme)
-  - [Collection Probleme](#collection-probleme)
-  - [Performance Probleme](#performance-probleme)
-- [Best Practices](#best-practices)
-  - [Zentrale Konfiguration](#zentrale-konfiguration)
-  - [Wartbare Queries](#wartbare-queries)
-  - [Saubere API](#saubere-api)
-  - [Collections effektiv nutzen](#collections-effektiv-nutzen)
-
-## [Collection Methode map() im Detail](#collection-methode-map-im-detail)
-- [Grundlegende Verwendung](#grundlegende-verwendung)
-- [Key-Value Transformationen](#key-value-transformationen)
-- [Komplexe Datenstrukturen](#komplexe-datenstrukturen)
-- [Berechnungen](#berechnungen)
-- [Index-basierte Operationen](#index-basierte-operationen)
-- [Kombination mit anderen Methoden](#kombination-mit-anderen-methoden)
-- [API-Datenstrukturierung](#api-datenstrukturierung)
-- [Frontend-Datenvorbereitung](#frontend-datenvorbereitung)
-- [Datums-Gruppierung](#datums-gruppierung)
-- [Best Practices für map()](#best-practices-für-map)
-  - [Verkettung](#verkettung)
-  - [Performance](#performance)
-  - [Typsicherheit](#typsicherheit)
-  - [Verschachtelte Collections](#verschachtelte-collections)
-
+<!-- TOC --><a name="teil-1-grundlagen-mit-rex_yform_manager_dataset"></a>
 ## Teil 1: Grundlagen mit rex_yform_manager_dataset
 
 YORM (YForm Object-Relational Mapping) ermöglicht dir den einfachen Zugriff auf deine REDAXO-Datenbanktabellen. Los geht's mit den Grundlagen!
 
+<!-- TOC --><a name="datensätze-laden-und-auslesen"></a>
 ### Datensätze laden und auslesen
 
 ```php
@@ -137,6 +75,7 @@ foreach($articles as $article) {
 }
 ```
 
+<!-- TOC --><a name="mit-collections-arbeiten"></a>
 ### Mit Collections arbeiten
 
 ```php
@@ -185,6 +124,7 @@ $articles->sort(function($a, $b) {
 $subset = $articles->slice(0, 5);  // Erste 5 Einträge
 ```
 
+<!-- TOC --><a name="filtern-und-sortieren"></a>
 ### Filtern und Sortieren
 
 ```php
@@ -203,6 +143,7 @@ $articles = rex_yform_manager_dataset::query('rex_news')
     ->find();
 ```
 
+<!-- TOC --><a name="mit-relationen-arbeiten"></a>
 ### Mit Relationen arbeiten
 
 ```php
@@ -230,6 +171,7 @@ $publishedComments = $comments->filter(function($comment) {
 });
 ```
 
+<!-- TOC --><a name="komplexe-abfragen"></a>
 ### Komplexe Abfragen
 
 ```php
@@ -252,6 +194,7 @@ foreach($articles as $article) {
 }
 ```
 
+<!-- TOC --><a name="datensätze-zählen-und-prüfen"></a>
 ### Datensätze zählen und prüfen
 
 ```php
@@ -271,6 +214,7 @@ $article = rex_yform_manager_dataset::query('rex_news')
     ->findOne();
 ```
 
+<!-- TOC --><a name="pagination"></a>
 ### Pagination
 
 ```php
@@ -292,10 +236,12 @@ echo "Insgesamt " . $pager->getRowCount() . " Artikel";
 
 Das waren die Grundlagen! Im nächsten Teil schauen wir uns an, wie wir mit einer eigenen Model-Class arbeiten können.
 
+<!-- TOC --><a name="teil-2-arbeiten-mit-model-classes"></a>
 ## Teil 2: Arbeiten mit Model-Classes
 
 Eine Model-Class macht deinen Code übersichtlicher, wartbarer und wiederverwendbar. Sie kapselt die Logik für eine bestimmte Tabelle und bietet eine saubere API.
 
+<!-- TOC --><a name="vergleich-ohne-vs-mit-model-class"></a>
 ### Vergleich: Ohne vs. Mit Model-Class
 
 Ohne Model-Class:
@@ -325,6 +271,7 @@ if($article->isOnline()) {
 }
 ```
 
+<!-- TOC --><a name="eine-model-class-erstellen"></a>
 ### Eine Model-Class erstellen
 
 1. Erstelle die Datei `lib/News.php`:
@@ -412,6 +359,7 @@ class News extends \rex_yform_manager_dataset
 rex_yform_manager_dataset::setModelClass('rex_news', News::class);
 ```
 
+<!-- TOC --><a name="die-model-class-verwenden"></a>
 ### Die Model-Class verwenden
 
 ```php
@@ -442,6 +390,7 @@ $articlesByCategory = $articles->groupBy(function($article) {
 });
 ```
 
+<!-- TOC --><a name="praktisches-beispiel-news-ausgabe"></a>
 ### Praktisches Beispiel: News-Ausgabe
 
 ```php
@@ -488,8 +437,10 @@ echo '</aside>';
 
 Im nächsten Teil schauen wir uns fortgeschrittene Techniken und ein komplettes News-System an.
 
+<!-- TOC --><a name="teil-3-komplettes-news-system-tipps"></a>
 ## Teil 3: Komplettes News-System & Tipps
 
+<!-- TOC --><a name="table-manager-setup"></a>
 ### Table Manager Setup
 
 Tableset: 
@@ -651,6 +602,7 @@ Tableset:
 }
 ```
 
+<!-- TOC --><a name="die-erweiterte-model-class"></a>
 ### Die erweiterte Model-Class
 
 ```php
@@ -777,6 +729,7 @@ class News extends \rex_yform_manager_dataset
 }
 ```
 
+<!-- TOC --><a name="frontend-module"></a>
 ### Frontend Module
 
 ```php
@@ -830,8 +783,10 @@ if($pager->getLastPage() > 1) {
 }
 ```
 
+<!-- TOC --><a name="tipps-tricks"></a>
 ## Tipps & Tricks
 
+<!-- TOC --><a name="performance-optimierung"></a>
 ### Performance Optimierung
 
 1. **Eager Loading für Relationen**
@@ -881,6 +836,7 @@ $titles = News::query()
     ->find();
 ```
 
+<!-- TOC --><a name="debugging"></a>
 ### Debugging
 
 ```php
@@ -896,6 +852,7 @@ $sql->getArray($query->getQuery(), $query->getParams());
 dump($articles->toArray());
 ```
 
+<!-- TOC --><a name="nützliche-queries"></a>
 ### Nützliche Queries
 
 1. **WHERE IN mit Array**
@@ -927,6 +884,7 @@ $articles = News::query()
     ->find();
 ```
 
+<!-- TOC --><a name="utility-methoden"></a>
 ### Utility Methoden
 
 1. **Handliche Sortier-Methode**
@@ -968,6 +926,7 @@ public function getShareUrl()
 }
 ```
 
+<!-- TOC --><a name="häufige-probleme"></a>
 ### Häufige Probleme
 
 1. **Relationen sind null**
@@ -984,6 +943,7 @@ public function getShareUrl()
 - Verwende Joins statt einzelner Relation-Queries
 - Implementiere Caching für häufig genutzte Daten
 
+<!-- TOC --><a name="best-practices"></a>
 ### Best Practices
 
 1. **Zentrale Konfiguration**
@@ -1053,12 +1013,16 @@ $categories = NewsCategory::query()->find()->map(function($category) {
 });
 ```
 
+<!-- TOC --><a name="yorm-tutorial-1"></a>
 # YORM Tutorial
 
+<!-- TOC --><a name="yorm-tutorial-2"></a>
 # YORM Tutorial
 
+<!-- TOC --><a name="teil-3-komplettes-news-system-tipps-1"></a>
 ## Teil 3: Komplettes News-System & Tipps
 
+<!-- TOC --><a name="table-manager-setup-1"></a>
 ### Table Manager Setup
 
 ```php
@@ -1115,6 +1079,7 @@ $categories = NewsCategory::query()->find()->map(function($category) {
 ]
 ```
 
+<!-- TOC --><a name="die-erweiterte-model-class-1"></a>
 ### Die erweiterte Model-Class
 
 ```php
@@ -1241,6 +1206,7 @@ class News extends \rex_yform_manager_dataset
 }
 ```
 
+<!-- TOC --><a name="frontend-module-1"></a>
 ### Frontend Module
 
 ```php
@@ -1294,8 +1260,10 @@ if($pager->getLastPage() > 1) {
 }
 ```
 
+<!-- TOC --><a name="tipps-tricks-1"></a>
 ## Tipps & Tricks
 
+<!-- TOC --><a name="performance-optimierung-1"></a>
 ### Performance Optimierung
 
 1. **Eager Loading für Relationen**
@@ -1345,6 +1313,7 @@ $titles = News::query()
     ->find();
 ```
 
+<!-- TOC --><a name="debugging-1"></a>
 ### Debugging
 
 ```php
@@ -1360,6 +1329,7 @@ $sql->getArray($query->getQuery(), $query->getParams());
 dump($articles->toArray());
 ```
 
+<!-- TOC --><a name="nützliche-queries-1"></a>
 ### Nützliche Queries
 
 1. **WHERE IN mit Array**
@@ -1391,6 +1361,7 @@ $articles = News::query()
     ->find();
 ```
 
+<!-- TOC --><a name="utility-methoden-1"></a>
 ### Utility Methoden
 
 1. **Handliche Sortier-Methode**
@@ -1432,6 +1403,7 @@ public function getShareUrl()
 }
 ```
 
+<!-- TOC --><a name="häufige-probleme-1"></a>
 ### Häufige Probleme
 
 1. **Relationen sind null**
@@ -1448,6 +1420,7 @@ public function getShareUrl()
 - Verwende Joins statt einzelner Relation-Queries
 - Implementiere Caching für häufig genutzte Daten
 
+<!-- TOC --><a name="best-practices-1"></a>
 ### Best Practices
 
 1. **Zentrale Konfiguration**
@@ -1517,6 +1490,7 @@ $categories = NewsCategory::query()->find()->map(function($category) {
 });
 ```
 
+<!-- TOC --><a name="collection-methode-map-im-detail"></a>
 ### Collection Methode `map()` im Detail
 
 Die `map()`-Methode ist ein mächtiges Werkzeug zur Transformation von Collections. Sie wendet eine Funktion auf jedes Element an und erstellt ein neues Array.
