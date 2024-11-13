@@ -31,20 +31,7 @@
       + [Utility Methoden](#utility-methoden)
       + [Häufige Probleme](#häufige-probleme)
       + [Best Practices](#best-practices)
-- [YORM Tutorial](#yorm-tutorial-1)
-- [YORM Tutorial](#yorm-tutorial-2)
-   * [Teil 3: Komplettes News-System & Tipps](#teil-3-komplettes-news-system-tipps-1)
-      + [Table Manager Setup](#table-manager-setup-1)
-      + [Die erweiterte Model-Class](#die-erweiterte-model-class-1)
-      + [Frontend Module](#frontend-module-1)
-   * [Tipps & Tricks](#tipps-tricks-1)
-      + [Performance Optimierung](#performance-optimierung-1)
-      + [Debugging](#debugging-1)
-      + [Nützliche Queries](#nützliche-queries-1)
-      + [Utility Methoden](#utility-methoden-1)
-      + [Häufige Probleme](#häufige-probleme-1)
-      + [Best Practices](#best-practices-1)
-      + [Collection Methode `map()` im Detail](#collection-methode-map-im-detail)
+
 
 
 <!-- TOC --><a name="teil-1-grundlagen-mit-rex_yform_manager_dataset"></a>
