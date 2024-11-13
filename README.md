@@ -1,7 +1,12 @@
-<!-- TOC start (generated with https://github.com/derlin/bitdowntoc) -->
+
+<!-- TOC --><a name="yorm-tutorial"></a>
+# YORM Tutorial
+
+
+<!-- TOC --><a name="yorm-tutorial-inhaltsverzeichnis"></a>
+# YORM Tutorial - Inhaltsverzeichnis
 
 - [YORM Tutorial](#yorm-tutorial)
-- [YORM Tutorial - Inhaltsverzeichnis](#yorm-tutorial-inhaltsverzeichnis)
    * [Teil 1: Grundlagen mit rex_yform_manager_dataset](#teil-1-grundlagen-mit-rex_yform_manager_dataset)
       + [Datensätze laden und auslesen](#datensätze-laden-und-auslesen)
       + [Mit Collections arbeiten](#mit-collections-arbeiten)
@@ -41,14 +46,6 @@
       + [Best Practices](#best-practices-1)
       + [Collection Methode `map()` im Detail](#collection-methode-map-im-detail)
 
-<!-- TOC end -->
-
-<!-- TOC --><a name="yorm-tutorial"></a>
-# YORM Tutorial
-
-
-<!-- TOC --><a name="yorm-tutorial-inhaltsverzeichnis"></a>
-# YORM Tutorial - Inhaltsverzeichnis
 
 <!-- TOC --><a name="teil-1-grundlagen-mit-rex_yform_manager_dataset"></a>
 ## Teil 1: Grundlagen mit rex_yform_manager_dataset
